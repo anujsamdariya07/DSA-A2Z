@@ -137,8 +137,7 @@ void levelOrderTraversal2(Node *root)
 	q.push(NULL);
 	cout << "LEVEL ORDER: ";
 
-	// while (!q.empty()) -> infinite loop for last NULL
-	while (q.size() > 1)
+	while (!q.empty())
 	{
 		Node *front = q.front();
 		q.pop();
@@ -146,7 +145,9 @@ void levelOrderTraversal2(Node *root)
 		if (front == NULL)
 		{
 			cout << endl;
-			q.push(NULL);
+			if (!q.empty()) {
+				q.push(NULL);
+			}
 		}
 		else
 		{
@@ -252,7 +253,7 @@ bool isBalanced(Node *root)
 	return rootAns && leftAns && rightAns;
 }
 
-Node *lowestCommonAncestor(Node *root, Node *p, Node *q)
+Node* lowestCommonAncestor(Node *root, Node *p, Node *q)
 {
 	// Base conditions
 	if (root == NULL)
@@ -364,17 +365,17 @@ vector<vector<int>> pathSum(Node *root, int targetSum)
 int main()
 {
 	Node *root = createTree();
-	cout << root->data << endl;
-	cout << "PRE ORDER: ";
-	preOrder(root);
-	cout << '\n'
-			 << "IN ORDER: ";
-	inOrder(root);
-	cout << '\n'
-			 << "POST ORDER: ";
-	postOrder(root);
-	cout << '\n';
-	levelOrderTraversal(root);
-	cout << '\n';
+	// cout << root->data << endl;
+	// cout << "PRE ORDER: ";
+	// preOrder(root);
+	// cout << '\n'
+	// 		 << "IN ORDER: ";
+	// inOrder(root);
+	// cout << '\n'
+	// 		 << "POST ORDER: ";
+	// postOrder(root);
+	// cout << '\n';
+	// levelOrderTraversal(root);
+	// cout << '\n';
 	levelOrderTraversal2(root);
 }
