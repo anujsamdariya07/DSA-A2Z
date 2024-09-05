@@ -94,14 +94,14 @@ void levelOrder(Node *root)
   }
 }
 
-Node* minVal(Node* root)
+Node *minVal(Node *root)
 {
-  if(root == NULL)
+  if (root == NULL)
   {
     return NULL;
   }
 
-  Node* temp = root;
+  Node *temp = root;
 
   while (temp->left != NULL)
   {
@@ -110,14 +110,14 @@ Node* minVal(Node* root)
   return temp;
 }
 
-Node* maxVal(Node* root)
+Node *maxVal(Node *root)
 {
-  if(root == NULL)
+  if (root == NULL)
   {
     return NULL;
   }
 
-  Node* temp = root;
+  Node *temp = root;
 
   while (temp->right != NULL)
   {
@@ -126,7 +126,7 @@ Node* maxVal(Node* root)
   return temp;
 }
 
-bool searchInBST(Node* root, int target)
+bool searchInBST(Node *root, int target)
 {
   if (root == NULL)
   {
@@ -140,14 +140,16 @@ bool searchInBST(Node* root, int target)
   if (target > root->data)
   {
     rightAns = searchInBST(root->right, target);
-  } else {
+  }
+  else
+  {
     leftAns = searchInBST(root->left, target);
   }
 
   return currentAns || leftAns || rightAns;
 }
 
-Node* deleteFromBST(Node* root, int target)
+Node *deleteFromBST(Node *root, int target)
 {
   if (root == NULL)
   {
@@ -168,7 +170,7 @@ Node* deleteFromBST(Node* root, int target)
     // Left non-null and right null
     else if (root->left != NULL && root->right == NULL)
     {
-      Node* childSubTree = root->left;
+      Node *childSubTree = root->left;
       delete root;
       return childSubTree;
     }
@@ -176,17 +178,18 @@ Node* deleteFromBST(Node* root, int target)
     // Left null and right non-null
     else if (root->left == NULL && root->right != NULL)
     {
-      Node* childSubTree = root->right;
+      Node *childSubTree = root->right;
       delete root;
       return childSubTree;
     }
 
     // Left non-null and right non-null
-    else {
+    else
+    {
       // Max value of left subtree
-      Node* maxLeft = maxVal(root->left);
+      Node *maxLeft = maxVal(root->left);
       // Min value of right subtree
-      Node* minRight = minVal(root->right);
+      Node *minRight = minVal(root->right);
 
       // Replacement
       root->data = maxLeft->data;
@@ -214,12 +217,27 @@ Node* deleteFromBST(Node* root, int target)
   return root;
 }
 
+void toInOrder(Node *root, vector<int> &inOrder)
+{
+  if (root == NULL)
+  {
+    return;
+  }
+  // LNR
+  // L
+  toInOrder(root->left, inOrder);
+  // N
+  inOrder.push_back(root->data);
+  // R
+  toInOrder(root->right, inOrder);
+}
+
 int main()
 {
   Node *root = NULL;
   createBST(root);
-  levelOrder(root);
-  levelOrder(root);
+  // levelOrder(root);
+  // levelOrder(root);
 
   // cout << "Min Node: " << minVal(root)->data << '\n';
   // cout << "Max Node: " << maxVal(root)->data << '\n';
@@ -230,7 +248,14 @@ int main()
   //   cout << "Not Found\n";
   // }
 
-  deleteFromBST(root, 50);
-  levelOrder(root);
+  // deleteFromBST(root, 50);
+  // levelOrder(root);
+
+  vector<int> inOrder;
+  toInOrder(root, inOrder);
+
+  for (auto i: inOrder) {
+    cout << i << " ";
+  }
 }
 // 50 30 40 20 60 55 70 80 25 -1
